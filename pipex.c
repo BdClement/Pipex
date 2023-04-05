@@ -6,13 +6,17 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:15:49 by clbernar          #+#    #+#             */
-/*   Updated: 2023/03/22 19:18:51 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:25:23 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "pipex.h"
 
+// Rappel
+// valgrind --leak-check=full --track-fds=yes --trace-children=yes
+//./pipex /dev/stdin "cat" "ls" /dev/stdout Blocage a cause des close FD
+// 3 fd a fermer processus daron
+// FONCTION find_cmd_paths
 // Retrouve la ligne qui contient l'ensemble des path dans envp
 // Retire le debut ("PATH=")
 // Et retourne le split du reste de la ligne avec donc l'ensemble des path
@@ -20,9 +24,7 @@ char	**find_cmd_paths(char **envp)
 {
 	int		i;
 	int		j;
-	char	**paths;
 
-	paths = NULL;
 	i = 0;
 	j = 0;
 	while (envp[i])
@@ -36,7 +38,6 @@ char	**find_cmd_paths(char **envp)
 		i++;
 	}
 	return (NULL);
-	// Split a Free en fin de programme !!
 }
 
 //Similaire a un ft_strjoin en ajoutant la commande a la fin du path
@@ -67,124 +68,60 @@ char	*ft_join(char const *s1, char const *s2)
 	return (str);
 }
 
-// Le processus fils se charge d'executer la cmd1 et de diriger le resultat
-// de cette execution dans le bout d'ecriture du pipe que l'on a cree
-void	child_part(int file1, int *fd, char **envp, char **argv)
+//Trouve grace a access() le bon path a envoyer a execve
+char	*find_full_path(t_pipex pipex)
 {
-	char	**cmd_arg;
-	char	**paths;
-	char	*cmd_path;
 	int		i;
+	char	*cmd_path;
 
 	i = 0;
-	cmd_arg = ft_split(argv[2], ' ');
-	paths = find_cmd_paths(envp);
-	//REDIRECTION
-	dup2(file1, STDIN_FILENO);// La nouvelle entree standard est file1
-	dup2(fd[1], STDOUT_FILENO); // La nouvelle sortie standard est le bout d'ecriture du pipe
-	close(fd[0]);// fermer le bout de lecture que l'on utilise pas;
-	//TEST EXECUTION AVEC EXECVE Avec chaque PATH
-	while (paths[i])
+	if (pipex.all_paths != NULL)
 	{
-		cmd_path = ft_join(paths[i], cmd_arg[0]);
-		execve(cmd_path, cmd_arg, envp);
-		free(cmd_path);
-		i++;
+		while (pipex.all_paths[i])
+		{
+			cmd_path = ft_join(pipex.all_paths[i++], pipex.cmd_args[0]);
+			if (access(cmd_path, X_OK) == 0)
+				return (cmd_path);
+			free(cmd_path);
+		}
 	}
-	close(fd[1]);
+	return (NULL);
 }
 
-// Le processus parent recupere lui a parir du bout de lecture du pipe le
-// resultat de la cmd1 et l'utilise comme entree standard pour l'execution
-// de la cmd2. Il dirige le resultat de la cmd2 dans le file2
-void	parent_part(int file2, int *fd, char **envp, char **argv)
+// Free un char **
+void	free_double_char(char **tab)
 {
-	char	**cmd_arg;
-	char	**paths;
-	char	*cmd_path;
-	int		i;
+	int	i;
 
 	i = 0;
-	cmd_arg = ft_split(argv[3], ' ');
-	paths = find_cmd_paths(envp);
-	//REDIRECTION
-	dup2(fd[0], STDIN_FILENO);// L'entree standard de la cmd2 est le pipe avec le resultat de l'execution de cmd1
-	dup2(file2, STDOUT_FILENO);//La sortie standard de la cmd2 est file2
-	close(fd[1]);// Fermer le bout d'ecriture du pipe que l'on utilise pas
-	//TEST EXECUTION AVEC EXECVE Avec chaque PATH
-	while (paths[i])
+	if (tab != NULL)
 	{
-
-		cmd_path = ft_join(paths[i], cmd_arg[0]);
-		execve(cmd_path, cmd_arg, envp);
-		free(cmd_path);
-		i++;
-	}
-	close(fd[0]);
-}
-
-void	pipex(int file1, int file2, char **envp, char **argv)
-{
-	int	fd[2];
-	int status;
-	pid_t	pid;
-
-	if (pipe(fd) < 0)
-		perror("Error");
-	pid = fork();
-	if (pid < 0)
-		perror("Error");
-	if (pid == 0)
-	{
-		//child process
-		// printf("JE suis le processus fils\n");
-		child_part(file1, fd, envp, argv);
-		printf("JE suis le processus fils\n");// ????
-	}
-	else
-	{
-		// Dad_part
-		wait(&status);
-		parent_part(file2, fd, envp, argv);
-		printf("Je suis le pere et jai du attendre mon fils\n");
+		while (tab[i])
+			free(tab[i++]);
+		free(tab);
 	}
 }
 
+// O_TRUNC Permet d'ecraser le resultat si file2 n'est pas vide
 int	main(int argc, char **argv, char **envp)
 {
-	int	file1;
-	int	file2;
+	t_pipex	pipex;
 
-	if (argc == 5)
+	if (argc != 5)
 	{
-		file1 = open(argv[1], O_RDONLY);
-		file2 = open(argv[4], O_CREAT |O_TRUNC | O_WRONLY, 0744); // ++ O_TRUNC
-		if (file1 == -1 || file2 == -1)
-			return (-1);
-		pipex(file1, file2, envp, argv);
-		close(file1);
-		close(file2);
+		ft_putstr_fd("Nombre d'arguments incorrect\n", 2);
+		return (1);
 	}
+	pipex.infile = open(argv[1], O_RDONLY);
+	if (pipex.infile == -1)
+		perror(argv[1]);
+	pipex.outfile = open(argv[4], O_CREAT | O_TRUNC | O_WRONLY, 0744);
+	if (pipex.outfile == -1)
+		perror(argv[4]);
+	pipex_fork(&pipex, envp, argv);
+	close(pipex.infile);
+	close(pipex.outfile);
+	if (pipex.infile == -1 || pipex.outfile == -1)
+		return (1);
 	return (0);
 }
-
-
-/*
-	Pipe()
-		Fork() (creation d'un processus fils)
-			child (executer la cmd1)
-				dup2 pour rediriger
-				close end[0]
-				execve(cmd1)
-			parent ou child 2 (executer cmd2)
-				dup2
-				close end[1]
-				execve(cmd2)
-Dans le processus fils on veut que stdin soit rediriger vers file1 (donc que notre fichier soit l'input de la cmd1)
-Et que end[1] soit le stdout de la cmd1 (on veut ecrire le resultat dans notre pipe)
-Dans le processus Parent ou child2, on veut que le stdin soit rediriger vers end[0] (on veut que le resultat de la cmd1 ecris dans le pipe soit linput de la cmd2)
-Et que stdout soit rediriger vers file2 (on veut ecrire le resultat de la cmd2 dans file2)
-
-PATH=/mnt/nfs/homes/clbernar/bin:/mnt/nfs/homes/clbernar/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-*/
-// printf("%d",execve("/usr/bin/ls", tab, envp)); La ca marche

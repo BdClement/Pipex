@@ -6,7 +6,7 @@
 #    By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/21 13:25:27 by clbernar          #+#    #+#              #
-#    Updated: 2023/03/24 12:57:38 by clbernar         ###   ########.fr        #
+#    Updated: 2023/04/04 20:38:44 by clbernar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
 
-SRCS = pipex.c
+SRCS = pipex.c child.c
 
 LIB = $(LIBFT_PATH)/libft.a
 LIBFT_PATH = ./Libft
