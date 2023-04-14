@@ -6,11 +6,12 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:53:16 by clbernar          #+#    #+#             */
-/*   Updated: 2022/11/25 18:04:18 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:13:21 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// #include "libft.h"
+#include "./Includes/libft.h"
 
 static size_t	ischar(char c, const char *set)
 {

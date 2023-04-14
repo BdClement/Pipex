@@ -6,11 +6,12 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 17:34:58 by clbernar          #+#    #+#             */
-/*   Updated: 2022/11/29 15:19:54 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:12:57 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// #include "libft.h"
+#include "./Includes/libft.h"
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {

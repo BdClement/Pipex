@@ -6,11 +6,12 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 18:25:15 by clbernar          #+#    #+#             */
-/*   Updated: 2022/11/29 15:06:46 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:12:26 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// #include "libft.h"
+#include "./Includes/libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {

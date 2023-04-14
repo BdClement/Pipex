@@ -6,7 +6,7 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:32:07 by clbernar          #+#    #+#             */
-/*   Updated: 2023/04/05 14:27:58 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/14 20:54:04 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	child1(t_pipex pipex, char **envp, char **argv)
 		else
 			child1_error_case(pipex, argv, 4);
 	}
+	// close(pipex.pipe[1]);
 	exit(EXIT_SUCCESS);
 }
 
@@ -127,6 +128,7 @@ void	child2(t_pipex pipex, char **envp, char **argv)
 		else
 			child2_error_case(pipex, argv, 4);
 	}
+	close(pipex.pipe[0]);
 	exit(EXIT_SUCCESS);
 }
 

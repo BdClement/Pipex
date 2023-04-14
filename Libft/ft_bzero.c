@@ -6,11 +6,12 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:51:53 by clbernar          #+#    #+#             */
-/*   Updated: 2022/11/25 17:36:40 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:09:46 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// #include "libft.h"
+#include "./Includes/libft.h"
 
 void	ft_bzero(void *s, size_t n)
 {

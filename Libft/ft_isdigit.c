@@ -6,11 +6,12 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 17:20:18 by clbernar          #+#    #+#             */
-/*   Updated: 2022/11/16 15:37:17 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:10:33 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// #include "libft.h"
+#include "./Includes/libft.h"
 
 int	ft_isdigit(int c)
 {

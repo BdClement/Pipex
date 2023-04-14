@@ -6,11 +6,12 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:18:53 by clbernar          #+#    #+#             */
-/*   Updated: 2022/11/29 16:54:01 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:12:41 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// #include "libft.h"
+#include "./Includes/libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

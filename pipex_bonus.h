@@ -1,43 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/21 13:26:20 by clbernar          #+#    #+#             */
-/*   Updated: 2023/04/12 16:46:58 by clbernar         ###   ########.fr       */
+/*   Created: 2023/04/05 19:30:09 by clbernar          #+#    #+#             */
+/*   Updated: 2023/04/14 16:55:15 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include "./Libft/Includes/libft.h"
-// # include "Get_Next_Line/get_next_line.h"
+# include "./Libft/Includes/get_next_line.h"
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <string.h>
 # include <stdlib.h>
 # include <stdio.h>
 
-// Libft/
-// Get_Next_Line/
 typedef struct s_pipex
 {
-	int		pipe[2];
+	int		here_doc;
+	char	*LIMITER;
+	int		**pipe; // Tableau A VOIR n'utiliser qu'un simple pointeur *pipe
+	int		nb_pipe;
 	int		infile;
 	int		outfile;
+	int		nb_cmd;
+	int		cmd_start;
 	char	**all_paths;
 	char	**cmd_args;
 	char	*cmd_path;
-	pid_t	pid1;
-	pid_t	pid2;
-
+	pid_t	pid;
 }				t_pipex;
 
+// NEW //
+void	init_struct(t_pipex *pipex, int argc, char **argv);
+void	fill_here_doc(t_pipex pipex);
+// MANDATORY //
 char	**find_cmd_paths(char **envp);
-void	pipex_fork(t_pipex *pipex, char **envp, char **argv);
+void	pipex_fork_bonus(t_pipex *pipex, char **envp, char **argv);
 char	*ft_join(char const *s1, char const *s2);
 void	child1(t_pipex pipex, char **envp, char **argv);
 void	child2(t_pipex pipex, char **envp, char **argv);

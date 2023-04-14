@@ -6,11 +6,12 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 19:41:25 by clbernar          #+#    #+#             */
-/*   Updated: 2022/11/25 18:04:51 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:13:26 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// #include "libft.h"
+#include "./Includes/libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {

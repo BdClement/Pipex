@@ -6,11 +6,12 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:39:43 by clbernar          #+#    #+#             */
-/*   Updated: 2022/11/25 18:29:53 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:11:59 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// #include "libft.h"
+#include "./Includes/libft.h"
 
 void	ft_putchar_fd(char c, int fd)
 {

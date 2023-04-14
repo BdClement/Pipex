@@ -6,11 +6,12 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:44:09 by clbernar          #+#    #+#             */
-/*   Updated: 2022/11/28 19:39:12 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:12:21 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+//#include "libft.h"
+#include "./Includes/libft.h"
 
 static size_t	ft_count_str(char const *str, char c)
 {

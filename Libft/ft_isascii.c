@@ -6,11 +6,12 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 10:38:45 by clbernar          #+#    #+#             */
-/*   Updated: 2022/11/16 15:37:12 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:10:21 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// #include "libft.h"
+#include "./Includes/libft.h"
 
 int	ft_isascii(int c)
 {
