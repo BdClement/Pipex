@@ -6,7 +6,7 @@
 #    By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/21 20:26:38 by clbernar          #+#    #+#              #
-#    Updated: 2023/04/21 20:26:43 by clbernar         ###   ########.fr        #
+#    Updated: 2023/04/21 20:28:56 by clbernar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,3 +62,4 @@ fclean: clean
 re: fclean all
 
 .PHONY : re all fclean bonus clean
+#S
