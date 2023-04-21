@@ -6,7 +6,7 @@
 #    By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/21 13:25:27 by clbernar          #+#    #+#              #
-#    Updated: 2023/04/12 14:29:36 by clbernar         ###   ########.fr        #
+#    Updated: 2023/04/17 19:15:31 by clbernar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
 
 SRCS = pipex.c child.c
-B_SRCS = pipex_bonus.c child_bonus.c
+B_SRCS = pipex_bonus.c child_bonus.c pipex_bonus_utils.c
 
 #GNL_PATH = ./Get_Next_Line
 #GNL_SRCS = $(GNL_PATH)/get_next_line.c $(GNL_PATH)/get_next_line_utils.c

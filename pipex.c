@@ -6,7 +6,7 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:15:49 by clbernar          #+#    #+#             */
-/*   Updated: 2023/04/05 14:25:23 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:47:04 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ char	**find_cmd_paths(char **envp)
 	return (NULL);
 }
 
-//Similaire a un ft_strjoin en ajoutant la commande a la fin du path
-// A la seule difference qu'on rajoute ici '/' pour completer le path
-// Et ensuite ajouter le fichier qui comprend la commande du meme nom
+// //Similaire a un ft_strjoin en ajoutant la commande a la fin du path
+// // A la seule difference qu'on rajoute ici '/' pour completer le path
+// // Et ensuite ajouter le fichier qui comprend la commande du meme nom
 char	*ft_join(char const *s1, char const *s2)
 {
 	char	*str;

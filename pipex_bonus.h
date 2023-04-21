@@ -6,7 +6,7 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 19:30:09 by clbernar          #+#    #+#             */
-/*   Updated: 2023/04/14 16:55:15 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/21 11:55:47 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 typedef struct s_pipex
 {
 	int		here_doc;
-	char	*LIMITER;
-	int		**pipe; // Tableau A VOIR n'utiliser qu'un simple pointeur *pipe
+	char	*limiter;
+	int		**pipe;
 	int		nb_pipe;
 	int		infile;
 	int		outfile;
@@ -37,18 +37,22 @@ typedef struct s_pipex
 	pid_t	pid;
 }				t_pipex;
 
-// NEW //
-void	init_struct(t_pipex *pipex, int argc, char **argv);
-void	fill_here_doc(t_pipex pipex);
-// MANDATORY //
-char	**find_cmd_paths(char **envp);
+// Child_bonus
+void	redirection(t_pipex *pipex, int index);
+void	close_pipes(t_pipex *pipex, int index, int error_case);
+void	child_bonus_error_case(t_pipex pipex, char **argv, int cas, int index);
+void	child_process(t_pipex *pipex, char **envp, char **argv, int index);
 void	pipex_fork_bonus(t_pipex *pipex, char **envp, char **argv);
-char	*ft_join(char const *s1, char const *s2);
-void	child1(t_pipex pipex, char **envp, char **argv);
-void	child2(t_pipex pipex, char **envp, char **argv);
-void	free_double_char(char **tab);
+// Pipex_bonus
+void	init_struct(t_pipex *pipex, int argc, char **argv);
+void	fill_here_doc(t_pipex *pipex);
+char	**find_cmd_paths(char **envp);
 char	*find_full_path(t_pipex pipex);
-void	child1_error_case(t_pipex pipex, char **argv, int cas);
-void	child2_error_case(t_pipex pipex, char **argv, int cas);
+//Pipex_bonus_utils
+void	free_double_char(char **tab);
+void	free_double_int(int **tab, int tab_size);
+void	error_messages(t_pipex pipex, char **argv, int cas, int index);
+void	malloc_pipes(t_pipex *pipex);
+char	*ft_join(char const *s1, char const *s2);
 
 #endif

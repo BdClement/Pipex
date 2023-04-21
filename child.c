@@ -6,7 +6,7 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:32:07 by clbernar          #+#    #+#             */
-/*   Updated: 2023/04/14 20:54:04 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:06:05 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ void	child1(t_pipex pipex, char **envp, char **argv)
 		else
 			child1_error_case(pipex, argv, 4);
 	}
-	// close(pipex.pipe[1]);
-	exit(EXIT_SUCCESS);
 }
 
 // Gestion des cas d'erreurs pour le processus1. Les differents cas sont :
@@ -84,9 +82,7 @@ void	child1_error_case(t_pipex pipex, char **argv, int cas)
 	free_double_char(pipex.all_paths);
 	if (cas == 1)
 		close(pipex.pipe[0]);
-	else if (cas == 2)
-		perror(argv[2]);
-	else if (cas == 3)
+	else if (cas == 2 || cas == 3)
 		perror(argv[2]);
 	else if (cas == 4)
 	{
@@ -98,6 +94,8 @@ void	child1_error_case(t_pipex pipex, char **argv, int cas)
 		close(pipex.infile);
 		free_double_char(pipex.cmd_args);
 	}
+	if (cas == 3)
+		free(pipex.cmd_path);
 	exit(EXIT_FAILURE);
 }
 
@@ -128,8 +126,6 @@ void	child2(t_pipex pipex, char **envp, char **argv)
 		else
 			child2_error_case(pipex, argv, 4);
 	}
-	close(pipex.pipe[0]);
-	exit(EXIT_SUCCESS);
 }
 
 // Gestion des cas d'erreurs pour le processus2. Les differents cas sont :
@@ -143,12 +139,11 @@ void	child2_error_case(t_pipex pipex, char **argv, int cas)
 		close(pipex.infile);
 	close(pipex.pipe[0]);
 	free_double_char(pipex.all_paths);
-	close(pipex.outfile);
+	if (pipex.outfile != -1)
+		close(pipex.outfile);
 	if (cas == 1)
 		close(pipex.pipe[1]);
-	else if (cas == 2)
-		perror(argv[3]);
-	else if (cas == 3)
+	else if (cas == 2 || cas == 3)
 		perror(argv[3]);
 	else if (cas == 4)
 	{
@@ -156,9 +151,8 @@ void	child2_error_case(t_pipex pipex, char **argv, int cas)
 		ft_putstr_fd(": command not found\n", 2);
 	}
 	if (cas != 1)
-	{
-		close(pipex.outfile);
 		free_double_char(pipex.cmd_args);
-	}
+	if (cas == 3)
+		free(pipex.cmd_path);
 	exit(EXIT_FAILURE);
 }

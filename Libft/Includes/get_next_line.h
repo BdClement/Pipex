@@ -6,7 +6,7 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 11:50:15 by clbernar          #+#    #+#             */
-/*   Updated: 2023/04/12 17:17:59 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/21 13:56:27 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_lst
 	struct s_lst	*next;
 }					t_lst;
 
-char	*get_next_line(int fd);
+char	*get_next_line(int fd, int free_still_reachable);
 int		contain_new_line(t_lst *lst);
 t_lst	*ft_lst_last(t_lst *lst);
 void	stock_in_list(t_lst **lst, char *buf, int nb_read);
