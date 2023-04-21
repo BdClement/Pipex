@@ -6,7 +6,7 @@
 #    By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/15 18:21:02 by clbernar          #+#    #+#              #
-#    Updated: 2023/04/12 17:08:57 by clbernar         ###   ########.fr        #
+#    Updated: 2023/04/21 19:10:40 by clbernar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ RM = rm -f
 HD_DIR = ./Includes
 HD = $(HD_DIR)/libft.h $(HD_DIR)/Get_next_line.h
 
-GNL_SRCDIR = ./Get_Next_Line
+GNL_SRCDIR = ./Get_Next_line
 
 SRCS = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c \
