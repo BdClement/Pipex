@@ -6,7 +6,7 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:43:08 by clbernar          #+#    #+#             */
-/*   Updated: 2023/04/17 18:47:54 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:12:03 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,13 @@ void	malloc_pipes(t_pipex *pipex)
 
 	i = 0;
 	pipex->pipe = malloc(sizeof(*pipex->pipe) * pipex->nb_pipe);
+	if (pipex->pipe == NULL)
+		return ;
 	while (i < pipex->nb_pipe)
 	{
 		pipex->pipe[i] = malloc(sizeof(int) * 2);
+		if (pipex->pipe[i] == NULL)
+			return ;
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 19:31:36 by clbernar          #+#    #+#             */
-/*   Updated: 2023/04/21 14:04:10 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:17:05 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	init_struct(t_pipex *pipex, int argc, char **argv)
 	}
 	pipex->nb_pipe = pipex->nb_cmd - 1;
 	pipex->cmd_args = NULL;
+	pipex->pipe = NULL;
 	malloc_pipes(pipex);
 }
 
@@ -57,8 +58,9 @@ void	fill_here_doc(t_pipex *pipex)
 	{
 		ft_putstr_fd("> ", 0);
 		str = get_next_line(0, 0);
-		if (ft_strlen(str) == ft_strlen(pipex->limiter) + 1
-			&& ft_strncmp(str, pipex->limiter, ft_strlen(pipex->limiter)) == 0)
+		if ((ft_strncmp(str, pipex->limiter, ft_strlen(pipex->limiter)) == 0
+				&& ft_strlen(str) == ft_strlen(pipex->limiter) + 1)
+			|| str == NULL)
 		{
 			get_next_line(file, 1);
 			free(str);
@@ -70,10 +72,7 @@ void	fill_here_doc(t_pipex *pipex)
 	close(file);
 	pipex->infile = open("/tmp/here_doc_tmp", O_RDONLY);
 	if (pipex->infile == -1)
-	{
-		unlink("/tmp/here_doc_tmp");
 		perror("Error");
-	}
 }
 
 // Retrouve la ligne qui contient l'ensemble des path dans envp
