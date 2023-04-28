@@ -6,7 +6,7 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:15:49 by clbernar          #+#    #+#             */
-/*   Updated: 2023/04/17 18:47:04 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/27 15:59:34 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,11 @@ char	*find_full_path(t_pipex pipex)
 		while (pipex.all_paths[i])
 		{
 			cmd_path = ft_join(pipex.all_paths[i++], pipex.cmd_args[0]);
-			if (access(cmd_path, X_OK) == 0)
-				return (cmd_path);
+			if (pipex.cmd_args[0] != NULL)
+			{
+				if (access(cmd_path, X_OK | F_OK) == 0)
+					return (cmd_path);
+			}
 			free(cmd_path);
 		}
 	}

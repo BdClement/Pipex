@@ -6,7 +6,7 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:43:08 by clbernar          #+#    #+#             */
-/*   Updated: 2023/04/24 18:12:03 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:41:42 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,25 @@
 // Affiche les differents messages d'erreur en foncton du cas
 void	error_messages(t_pipex pipex, char **argv, int cas, int index)
 {
-	if (cas == 1)
+	char	*str;
+
+	if (cas == 1 && pipex.outfile == -1
+		&& (access(argv[pipex.cmd_start - 1], F_OK) == -1))
+	{
+		str = ft_strjoin(argv[pipex.cmd_start - 1],
+				": No such file or directory\n");
+		write(2, str, ft_strlen(str));
+		free(str);
+	}
+	else if (cas == 1)
 		perror(argv[pipex.cmd_start + index - 1]);
 	else if (cas == 2)
 		perror(argv[pipex.cmd_start + index + 1]);
-	else if (cas == 5)
+	else if (cas == 5 || cas == 3)
 	{
-		ft_putstr_fd(pipex.cmd_args[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
+		str = ft_strjoin(pipex.cmd_args[0], ": command not found\n");
+		write(2, str, ft_strlen(str));
+		free(str);
 	}
 	else
 		perror(argv[pipex.cmd_start + index]);

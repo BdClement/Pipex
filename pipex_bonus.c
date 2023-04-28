@@ -6,7 +6,7 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 19:31:36 by clbernar          #+#    #+#             */
-/*   Updated: 2023/04/24 18:17:05 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/27 16:29:30 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,11 @@ char	*find_full_path(t_pipex pipex)
 		while (pipex.all_paths[i])
 		{
 			cmd_path = ft_join(pipex.all_paths[i++], pipex.cmd_args[0]);
-			if (access(cmd_path, X_OK) == 0)
-				return (cmd_path);
+			if (pipex.cmd_args[0] != NULL)
+			{
+				if (access(cmd_path, X_OK | F_OK) == 0)
+					return (cmd_path);
+			}
 			free(cmd_path);
 		}
 	}
@@ -132,8 +135,12 @@ int	main(int argc, char **argv, char **envp)
 	if (pipex.here_doc == 1)
 		fill_here_doc(&pipex);
 	pipex_fork_bonus(&pipex, envp, argv);
-	close(pipex.infile);
-	close(pipex.outfile);
+	free_double_char(pipex.all_paths);
+	free_double_int(pipex.pipe, pipex.nb_pipe);
+	if (pipex.infile != -1)
+		close(pipex.infile);
+	if (pipex.outfile != -1)
+		close(pipex.outfile);
 	if (pipex.here_doc == 1)
 		unlink("/tmp/here_doc_tmp");
 	if (pipex.infile == -1 || pipex.outfile == -1)

@@ -6,7 +6,7 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:32:07 by clbernar          #+#    #+#             */
-/*   Updated: 2023/04/21 18:06:05 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:05:55 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	child1(t_pipex pipex, char **envp, char **argv)
 // 4 La commande n'existe pas
 void	child1_error_case(t_pipex pipex, char **argv, int cas)
 {
+	char	*str;
+
 	if (pipex.outfile != -1)
 		close(pipex.outfile);
 	close(pipex.pipe[1]);
@@ -86,8 +88,9 @@ void	child1_error_case(t_pipex pipex, char **argv, int cas)
 		perror(argv[2]);
 	else if (cas == 4)
 	{
-		ft_putstr_fd(pipex.cmd_args[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
+		str = ft_strjoin(pipex.cmd_args[0], ": command not found\n");
+		write(2, str, ft_strlen(str));
+		free(str);
 	}
 	if (cas != 1)
 	{
@@ -135,6 +138,8 @@ void	child2(t_pipex pipex, char **envp, char **argv)
 // 4 La commande n'existe pas
 void	child2_error_case(t_pipex pipex, char **argv, int cas)
 {
+	char	*str;
+
 	if (pipex.infile != -1)
 		close(pipex.infile);
 	close(pipex.pipe[0]);
@@ -147,8 +152,9 @@ void	child2_error_case(t_pipex pipex, char **argv, int cas)
 		perror(argv[3]);
 	else if (cas == 4)
 	{
-		ft_putstr_fd(pipex.cmd_args[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
+		str = ft_strjoin(pipex.cmd_args[0], ": command not found\n");
+		write(2, str, ft_strlen(str));
+		free(str);
 	}
 	if (cas != 1)
 		free_double_char(pipex.cmd_args);

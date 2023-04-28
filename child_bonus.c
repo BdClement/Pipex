@@ -6,7 +6,7 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 19:38:43 by clbernar          #+#    #+#             */
-/*   Updated: 2023/04/21 17:39:39 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/27 16:53:14 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,9 +142,8 @@ void	pipex_fork_bonus(t_pipex *pipex, char **envp, char **argv)
 			close(pipex->pipe[i - 1][0]);
 			close(pipex->pipe[i - 1][1]);
 		}
-		wait(NULL);
 		i++;
 	}
-	free_double_char(pipex->all_paths);
-	free_double_int(pipex->pipe, pipex->nb_pipe);
+	while (i++ < pipex->nb_cmd * 2)
+		wait(NULL);
 }

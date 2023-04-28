@@ -6,7 +6,7 @@
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:01:12 by clbernar          #+#    #+#             */
-/*   Updated: 2023/04/12 16:12:12 by clbernar         ###   ########.fr       */
+/*   Updated: 2023/04/26 15:51:39 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,7 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	size_t	i;
-
 	if (s == NULL)
 		return ;
-	i = 0;
-	while (s[i] != '\0')
-	{
-		write(fd, s + i, 1);
-		i++;
-	}
+	write(fd, s, ft_strlen(s));
 }

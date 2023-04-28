@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: clbernar <clbernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 15:53:35 by clbernar          #+#    #+#             */
-/*   Updated: 2023/04/12 16:26:13 by clbernar         ###   ########.fr       */
+/*   Created: 2023/04/21 18:49:43 by clbernar          #+#    #+#             */
+/*   Updated: 2023/04/21 18:50:02 by clbernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-// # ifndef BUFFER_SIZE
-// #  define BUFFER_SIZE 5
-// # endif
-
-// # if (BUFFER_SIZE < 0)
-// #  undef BUFFER_SIZE
-// #  define BUFFER_SIZE 0
-// # endif
-
-// /// GNL ///
-// typedef struct s_lst
-// {
-// 	char			*content;
-// 	struct s_lst	*next;
-// }					t_lst;
-
-// char				*get_next_line(int fd);
-// int					contain_new_line(t_lst *lst);
-// t_lst				*ft_lst_last(t_lst *lst);
-// void				stock_in_list(t_lst **lst, char *buf, int nb_read);
-// void				read_and_stock(int fd, t_lst **lst);
-// void				create_line(t_lst *lst, char **str);
-// void				get_line(t_lst *lst, char	**str);
-// // size_t				ft_strlen(const char *s);
-// void				clean_lst(t_lst **lst);
-// void				free_lst(t_lst **lst);
-
-/// LIBFT ///
 typedef struct s_list
 {
 	void				*content;
